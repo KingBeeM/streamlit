@@ -1,6 +1,7 @@
 # - *- conding:UTF-8 -*-
 import streamlit as st
 import pandas as pd
+from utils import p_lans
 
 def main():
     # title
@@ -70,6 +71,19 @@ def main():
     # Check Box
     if st.checkbox("show/hide"):
         st.text("show")
+
+    # Select Box
+    choice = st.selectbox("프로그래밍 언어", p_lans) # utils.py 에서 불러오기
+    st.write(f"{choice} 언어를 선택함")
+
+    # multitple selection
+    lans = ("영어", "일본어", "중국어", "독일어")
+    myChoice = st.multiselect("언어 선택", lans, default="중국어")
+    st.write("선택", myChoice)
+
+    # slider
+    age = st.slider("나이", 1, 120)
+    st.write(age)
 
 if __name__ == "__main__":
     main()
