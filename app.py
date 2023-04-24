@@ -1,5 +1,6 @@
 # - *- conding:UTF-8 -*-
 import streamlit as st
+import pandas as pd
 
 def main():
     # title
@@ -34,6 +35,41 @@ def main():
     # Help
     st.help(range)
     st.help(st.title)
+
+    # 데이터 불러오기
+    st.title("IRIS 데이터")
+    iris = pd.read_csv("data/iris.csv")
+
+    st.title("st.dataframe()")
+    st.dataframe(iris, 200, 100) # Height, Width
+
+    st.title("st.table()")
+    st.table(iris)
+
+    st.title("st.write()")
+    st.write(iris)
+
+    myCode = """
+    def hellow():
+        print("hi")
+    """
+    st.code(myCode, language="Python")
+
+    # 위젯, button 기능 활용
+    name = "kingbee"
+    if st.button("Submit"):
+        st.write(f"name: {name.upper()}")
+
+    # RadioButton
+    s_state = st.radio("status", ("활성화", "비활성화"))
+    if s_state == "활성화":
+        st.success("활성화 상태")
+    else:
+        st.error("비활성화 상태")
+
+    # Check Box
+    if st.checkbox("show/hide"):
+        st.text("show")
 
 if __name__ == "__main__":
     main()
