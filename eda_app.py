@@ -41,7 +41,8 @@ def run_eda_app():
         with col2:
             st.title("Matplotlib")
             fig3, ax = plt.subplots()
-            ax.scatter(x=iris["sepal_width"], y=iris["sepal_length"])
+            colors = {"Iris-setosa":"red", "Iris-versicolor":"green", "Iris-virginica":"blue"}
+            ax.scatter(x=iris["sepal_width"], y=iris["sepal_length"], color=iris["species"].map(colors))
             st.pyplot(fig3)
 
         # Tabs
