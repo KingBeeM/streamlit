@@ -1,7 +1,13 @@
 # - *- conding:UTF-8 -*-
 import streamlit as st
 import pandas as pd
+from PIL import Image
 from utils import p_lans
+
+# Data VIZ
+import plotly.express as px
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def main():
     # title
@@ -84,6 +90,50 @@ def main():
     # slider
     age = st.slider("나이", 1, 120)
     st.write(age)
+
+    # Image 가져오기
+    img1 = Image.open("data/image_01.jpg")
+    st.image(img1)
+    img2 = Image.open("data/image_02.jpg")
+    st.image(img2)
+    img3 = Image.open("data/image_03.jpg")
+    st.image(img3)
+
+    url = "https://thumb.mt.co.kr/06/2023/01/2023010306193413103_1.jpg"
+    st.image(url)
+
+    # Video 출력
+    with open("data/secret_of_success.mp4", "rb") as rb:
+        video_file = rb.read()
+        st.video(video_file, start_time=1)
+
+    # Audio 출력
+    with open("data/song.mp3", "rb") as rb:
+        audio_file = rb.read()
+        st.audio(audio_file, format="audio/mp3")
+
+    # 화면 분할
+    iris = pd.read_csv("data/iris.csv")
+
+    choice = st.selectbox("iris_species", iris["species"].unique())
+    st.title(choice)
+
+    result = iris[iris["species"] == choice].reset_index(drop=True)
+    st.dataframe(result)
+
+    fig = px.scatter(data_frame=result, x='sepal_length', y='sepal_width')
+    st.plotly_chart(fig)
+
+    col1, col2 = st.columns([0.5, 0.5], gap="large")
+    with col1:
+        fig1, ax = plt.subplots()
+        sns.scatterplot(result, x="petal_length", y="sepal_width")
+        st.pyplot(fig1)
+
+    with col2:
+        fig2, ax = plt.subplots()
+        ax.scatter(x=result["sepal_length"], y=result["sepal_width"])
+        st.pyplot(fig2)
 
 if __name__ == "__main__":
     main()
